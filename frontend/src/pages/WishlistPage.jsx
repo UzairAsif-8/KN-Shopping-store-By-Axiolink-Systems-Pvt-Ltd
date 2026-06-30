@@ -4,16 +4,16 @@ import PageHero from '../components/common/PageHero';
 import ProductGrid from '../components/products/ProductGrid';
 import Logo from '../components/common/Logo';
 import Button from '../components/ui/Button';
-import { useWishlist } from '../context';
-import { IMAGES } from '../constants';
+import { useWishlist, useSiteContent } from '../context';
 
 const WishlistPage = () => {
   const { items } = useWishlist();
+  const { getImage } = useSiteContent();
 
   return (
     <div>
       <PageHero
-        image={IMAGES.placeholders.wishlist}
+        image={getImage('placeholders.wishlist')}
         eyebrow="Saved Favorites"
         title="Your Wishlist"
         subtitle={items.length ? `${items.length} item${items.length > 1 ? 's' : ''} saved` : 'Products you love, all in one place.'}

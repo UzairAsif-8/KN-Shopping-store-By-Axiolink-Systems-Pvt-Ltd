@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import PageHero from '../components/common/PageHero';
 import Button from '../components/ui/Button';
 import Logo from '../components/common/Logo';
-import { useCart } from '../context';
+import { useCart, useSiteContent } from '../context';
 import { formatPrice } from '../utils';
-import { IMAGES } from '../constants';
 
 const CheckoutPage = () => {
   const { items, subtotal } = useCart();
+  const { getImage } = useSiteContent();
 
   return (
     <div>
       <PageHero
-        image={IMAGES.placeholders.checkout}
+        image={getImage('placeholders.checkout')}
         eyebrow="Secure Checkout"
         title="Your Order"
       />

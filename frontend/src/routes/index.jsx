@@ -1,6 +1,9 @@
 import { lazy, Suspense } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import MainLayout from '../components/layout/MainLayout';
+import AdminLayout from '../components/layout/AdminLayout';
+import AdminShell from '../components/admin/AdminShell';
+import AdminProtectedRoute from './AdminProtectedRoute';
 import { PageSkeleton } from '../components/ui/Skeleton';
 
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -16,6 +19,11 @@ const AboutPage = lazy(() => import('../pages/AboutPage'));
 const ContactPage = lazy(() => import('../pages/ContactPage'));
 const CheckoutPage = lazy(() => import('../pages/CheckoutPage'));
 const AccountPage = lazy(() => import('../pages/AccountPage'));
+const AdminLoginPage = lazy(() => import('../pages/AdminLoginPage'));
+const AdminDashboardPage = lazy(() => import('../pages/AdminDashboardPage'));
+const AdminProductsPage = lazy(() => import('../pages/admin/AdminProductsPage'));
+const AdminProductFormPage = lazy(() => import('../pages/admin/AdminProductFormPage'));
+const AdminSiteImagesPage = lazy(() => import('../pages/admin/AdminSiteImagesPage'));
 const InfoPage = lazy(() => import('../pages/InfoPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
@@ -52,6 +60,28 @@ export const router = createBrowserRouter([
       { path: 'shipping', element: info('shipping') },
       { path: 'returns', element: info('returns') },
       { path: 'faq', element: info('faq') },
+      {
+        path: 'admin',
+        element: <AdminLayout />,
+        children: [
+          { index: true, element: <Navigate to="login" replace /> },
+          { path: 'login', element: withSuspense(AdminLoginPage) },
+          {
+            element: (
+              <AdminProtectedRoute>
+                <AdminShell />
+              </AdminProtectedRoute>
+            ),
+            children: [
+              { path: 'dashboard', element: withSuspense(AdminDashboardPage) },
+              { path: 'site-images', element: withSuspense(AdminSiteImagesPage) },
+              { path: 'products', element: withSuspense(AdminProductsPage) },
+              { path: 'products/new', element: withSuspense(AdminProductFormPage) },
+              { path: 'products/:id/edit', element: withSuspense(AdminProductFormPage) },
+            ],
+          },
+        ],
+      },
       { path: '*', element: withSuspense(NotFoundPage) },
     ],
   },

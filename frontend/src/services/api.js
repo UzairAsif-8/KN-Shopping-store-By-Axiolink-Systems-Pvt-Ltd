@@ -11,9 +11,12 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  const adminToken = localStorage.getItem('kn_admin_token');
   const token = localStorage.getItem('kn_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const authToken = adminToken || token;
+
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
   }
   return config;
 });
@@ -23,6 +26,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('kn_token');
+      localStorage.removeItem('kn_admin_token');
     }
     return Promise.reject(error);
   }

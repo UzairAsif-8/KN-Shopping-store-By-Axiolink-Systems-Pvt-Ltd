@@ -7,6 +7,7 @@ import {
   OrderProvider,
   UIProvider,
   ThemeProvider,
+  SiteContentProvider,
 } from './context';
 import router from './routes';
 
@@ -14,15 +15,17 @@ const App = () => (
   <ThemeProvider>
     <UIProvider>
       <AuthProvider>
-        <ProductProvider>
-          <CartProvider>
-            <WishlistProvider>
-              <OrderProvider>
-                <RouterProvider router={router} />
-              </OrderProvider>
-            </WishlistProvider>
-          </CartProvider>
-        </ProductProvider>
+        <SiteContentProvider>
+          <ProductProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <OrderProvider>
+                  <RouterProvider router={router} />
+                </OrderProvider>
+              </WishlistProvider>
+            </CartProvider>
+          </ProductProvider>
+        </SiteContentProvider>
       </AuthProvider>
     </UIProvider>
   </ThemeProvider>

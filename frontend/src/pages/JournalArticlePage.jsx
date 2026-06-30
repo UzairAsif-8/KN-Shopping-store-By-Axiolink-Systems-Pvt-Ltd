@@ -2,15 +2,16 @@ import { memo } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import PageHero from '../components/common/PageHero';
 import LazyImage from '../components/ui/LazyImage';
-import { getJournalBySlug, JOURNAL_POSTS } from '../constants';
+import { useSiteContent } from '../context';
 
 const JournalArticlePage = () => {
   const { slug } = useParams();
+  const { getJournalBySlug, journalPosts } = useSiteContent();
   const post = getJournalBySlug(slug);
 
   if (!post) return <Navigate to="/journal" replace />;
 
-  const related = JOURNAL_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
+  const related = journalPosts.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
     <div>

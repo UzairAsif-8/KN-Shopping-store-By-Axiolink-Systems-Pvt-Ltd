@@ -3,9 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 import PageHero from '../components/common/PageHero';
 import ProductGrid from '../components/products/ProductGrid';
 import CategoryCard from '../components/products/CategoryCard';
-import { ALL_PRODUCTS, BEST_SELLERS, CATEGORIES, IMAGES } from '../constants';
+import { ALL_PRODUCTS, BEST_SELLERS } from '../constants';
+import { useSiteContent } from '../context';
 
 const ShopPage = () => {
+  const { getImage, categories } = useSiteContent();
   const [params] = useSearchParams();
   const category = params.get('category');
   const filter = params.get('filter');
@@ -25,7 +27,7 @@ const ShopPage = () => {
   return (
     <div>
       <PageHero
-        image={IMAGES.hero.shop}
+        image={getImage('hero.shop')}
         eyebrow="KN Store"
         title={title}
         subtitle="Browse our full collection of premium beauty products, curated with intention."
@@ -34,7 +36,7 @@ const ShopPage = () => {
       {!category && !filter && (
         <section className="container-kn py-16 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {CATEGORIES.map((cat, i) => (
+            {categories.map((cat, i) => (
               <CategoryCard key={cat.id} category={cat} index={i} />
             ))}
           </div>

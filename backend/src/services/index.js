@@ -1,7 +1,6 @@
-// Placeholder service layer — implement when connecting business logic
-
-export const authService = {};
-export const productService = {};
-export const cartService = {};
-export const orderService = {};
-export const paymentService = {};
+export { AuthService } from './auth.service.js';
+export { CategoryService } from './category.service.js';
+export { DashboardService } from './dashboard.service.js';
+export { ProductService } from './product.service.js';
+export { UploadService } from './upload.service.js';
+export { SiteSectionService } from './siteSection.service.js';

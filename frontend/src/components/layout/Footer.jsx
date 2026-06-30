@@ -84,9 +84,17 @@ const Footer = () => (
 
       <div className="mt-16 pt-8 border-t border-outline/30 flex flex-col sm:flex-row justify-between items-center gap-6">
         <Logo variant="sm" className="opacity-60" />
-        <p className="text-xs text-text-muted text-center sm:text-right">
-          &copy; {new Date().getFullYear()} {BRAND.name}. All rights reserved.
-        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          <Link
+            to="/admin/login"
+            className="text-[10px] tracking-[0.2em] uppercase text-text-muted/70 hover:text-primary transition-colors"
+          >
+            Admin Login
+          </Link>
+          <p className="text-xs text-text-muted text-center sm:text-right">
+            &copy; {new Date().getFullYear()} {BRAND.name}. All rights reserved.
+          </p>
+        </div>
       </div>
     </div>
   </footer>
